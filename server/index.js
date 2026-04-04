@@ -10,14 +10,18 @@ const { joinRoom, leaveRoom } = require('./roomManager');
 const Session = require('./models/Session');
 
 const app = express();
-app.use(cors());
+
+// CORS — allow Vercel frontend in production
+const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173').split(',').map(s => s.trim());
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: allowedOrigins,
     methods: ['GET', 'POST'],
+    credentials: true,
   },
   maxHttpBufferSize: 5e6, // 5MB for image uploads
 });
