@@ -54,7 +54,8 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** in two browser tabs to test proximity chat.
+Open **https://virtual-cosmos-bice.vercel.app/** in two browser to test proximity chat.
+ 
 
 ## 📁 Project Structure
 
