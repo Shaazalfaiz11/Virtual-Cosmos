@@ -360,10 +360,13 @@ function broadcastPlayers() {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', players: userStore.size });
+  res.json({ status: 'ok', players: userStore.size, timestamp: new Date().toISOString() });
 });
+
+const { startKeepAlive } = require('./cron');
 
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  startKeepAlive();
 });
